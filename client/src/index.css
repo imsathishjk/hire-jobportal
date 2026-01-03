@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Quicksand:wght@300..700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap'); */
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Quicksand', 'Playfair', sans-serif;
+}
+
+.no-scroll::-webkit-scrollbar {
+    scrollbar-width: none;
+}
+
+.scrollbar::-webkit-scrollbar {
+    scrollbar-width: 2px;
+    scrollbar-color: blue;
+}
