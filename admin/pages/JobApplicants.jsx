@@ -74,7 +74,7 @@ const JobApplicants = () => {
                         </thead>
                         <tbody className='max-sm:text-sm font-medium text-left'>
                             {
-                                applicants.length < 0 ? applicants.map((job, i) => {
+                                applicants.length > 0 ? applicants.map((job, i) => {
                                     return <tr key={job._id}>
                                         <td className='max-md:hidden block font-medium py-2 px-2'>{i + 1}</td>
                                         <td className='px-2 font-medium py-2 '>{job.user[0].username}</td>

@@ -109,7 +109,7 @@ const ManageJobs = () => {
     }, [category, location, status]);
 
     return (
-        <div className='mt-5'>
+        <div className='my-5'>
             {/* Filters */}
             <div className='flex max-lg:flex-wrap justify-between gap-4 md:gap-8 lg:gap-12'>
                 <h1 className='font-semibold'>Filters:</h1>
@@ -157,7 +157,7 @@ const ManageJobs = () => {
                     })
                 }
                 {
-                    loading ? <Loader /> : categoryFilteredJobs?.map((job, i) => {
+                    loading ? <Loader /> : categoryFilteredJobs.map((job, i) => {
                         return <div key={i} className='border-2 border-gray-300 rounded-lg'>
                             <div className='flex flex-col items-start gap-3 bg-gray-50 font-semibold p-3 rounded-ss-lg rounded-se-lg'>
                                 <h1 className='text-blue-600'> {job.jobTitle}</h1>
@@ -175,7 +175,7 @@ const ManageJobs = () => {
                     })
                 }
                 {
-                    loading ? <Loader /> : locationFilteredJobs?.map((job, i) => {
+                    loading ? <Loader /> : locationFilteredJobs.map((job, i) => {
                         return <div key={i} className='border-2 border-gray-300 rounded-lg'>
                             <div className='flex flex-col items-start gap-3 bg-gray-50 font-semibold p-3 rounded-ss-lg rounded-se-lg'>
                                 <h1 className='text-blue-600'> {job.jobTitle}</h1>
@@ -193,7 +193,7 @@ const ManageJobs = () => {
                     })
                 }
                 {
-                    loading ? <Loader /> : activeJobs?.map((job, i) => {
+                    loading ? <Loader /> : activeJobs.map((job, i) => {
                         return <div key={i} className='border-2 border-gray-300 rounded-lg'>
                             <div className='flex flex-col items-start gap-3 bg-gray-50 font-semibold p-3 rounded-ss-lg rounded-se-lg'>
                                 <h1 className='text-blue-600'> {job.jobTitle}</h1>
