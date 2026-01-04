@@ -10,15 +10,23 @@ import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { RiDownloadCloud2Line } from "react-icons/ri";
+import { BiMessageSquareEdit } from "react-icons/bi";
+import { MdOutlineFileUpload } from "react-icons/md";
+import { BsSend } from "react-icons/bs";
+import { RiStarSmileLine } from "react-icons/ri";
+import { IoLogOutOutline } from "react-icons/io5";
+import Loader from './Loader';
+
 
 
 const Navbar = () => {
 
     const navigate = useNavigate();
-    const { showLogin, setShowLogin, userData, backendUrl, handleUserData, setUserLoggedIn, setUserData, userLoggedIn, loginType } = useContext(AppContext);
+    const { setShowLogin, userData, backendUrl, handleUserData, setUserLoggedIn, setUserData, userLoggedIn } = useContext(AppContext);
 
     const [userOptions, setUserOptions] = useState(false);
     const [resume, setResume] = useState('');
+    const [loading, setLoading] = useState(false);
 
 
     const handleLogout = async () => {
@@ -26,9 +34,9 @@ const Navbar = () => {
             const { data } = await axios.post(`${backendUrl}/user/logout`, {}, { withCredentials: true });
             console.log(data)
             if (data.success) {
+                setUserLoggedIn(false);
                 toast.success(data.msg);
                 setUserData(null);
-                setUserLoggedIn(false);
                 setUserOptions(false);
             } else {
                 toast.error(data.msg);
@@ -40,16 +48,18 @@ const Navbar = () => {
 
     const handleUploadResume = async () => {
         try {
+            setLoading(true);
             const formData = new FormData();
             formData.append('resume', resume);
             const { data } = await axios.post(`${backendUrl}/user/upload-resume`, formData, { withCredentials: true });
             if (data.success) {
-                setResume('');
-                handleUserData();
-                setUserOptions(false);
                 toast.success(data.msg);
+                setUserOptions(false);
+                setLoading(false);
+                setResume('');
             } else {
                 toast.error(data.msg);
+                setLoading(false);
             }
         } catch (err) {
             toast.error(err.message)
@@ -68,7 +78,10 @@ const Navbar = () => {
                     <li onClick={() => (navigate('/applied-jobs'))} className='max-sm:text-sm font-semibold text-[16px] cursor-pointer flex items-center gap-1'><RiSendPlaneFill className='text-lg text-blue-400' /> Applied Jobs</li>
                 </ul>
                 {
-                    userData && userLoggedIn && (
+                    loading ? <Loader /> : ''
+                }
+                {
+                    userData && userLoggedIn && !loading && (
                         <div className='flex items-center gap-5'>
                             <h1 className={`max-sm:text-sm font-semibold text-blue-600`}>Hi, {userData?.username}</h1>
                             {
@@ -85,26 +98,27 @@ const Navbar = () => {
                 }
                 {
                     userOptions && userData && (
-                        <ul className='flex flex-col gap-3 items-start absolute top-11 bg-gradient-to-t from-blue-100 to-right-200 border border-blue-300 rounded-md right-5 p-3 z-30 backdrop-blur-lg'>
-                            <li className='font-semibold text-blue-600 max-sm:block hidden cursor-pointer max-sm:text-sm'>Applied Jobs</li>
-                            <li className='font-semibold text-blue-600 max-sm:block hidden cursor-pointer max-sm:text-sm'>Saved Jobs</li>
+                        <ul className='flex flex-col gap-5 items-start absolute top-11 bg-gradient-to-t from-blue-100 to-right-200 border border-blue-300 rounded-md right-5 p-3 z-30 backdrop-blur-lg w-52'>
+                            <li onClick={() => { navigate('/applied-jobs', scrollTo(0, 0)), setUserOptions(false) }} className='font-semibold text-blue-600 hidden cursor-pointer max-sm:flex items-center gap-1.5'><BsSend /> Applied Jobs</li>
+                            <li onClick={() => { navigate('/saved-jobs', scrollTo(0, 0)), setUserOptions(false) }} className='font-semibold text-blue-600 hidden cursor-pointer max-sm:flex items-center gap-1.5'><RiStarSmileLine /> Saved Jobs</li>
                             {userData.isUser && userData.resume && !resume && (<a href={userData.resume} download={`${userData.username}_resume.pdf`} rel='noopener noreferrer' target='_blank'
-                                className='flex items-center gap-1 font-semibold'
-                            >Download Resume <RiDownloadCloud2Line /></a>)}
+                                className='flex items-center gap-1 font-semibold text-blue-600'
+                            ><RiDownloadCloud2Line /> Download Resume</a>)}
                             {
                                 !userData.isAdmin && (
-                                    <li className='font-semibold text-blue-600 cursor-pointer max-sm:text-sm flex flex-col gap-1.5'>
+                                    <li className='font-semibold text-blue-600 cursor-pointer flex flex-col gap-1.5'>
                                         {resume ? <span className='text-sm'>{resume?.name}</span> : ''}
                                         {
                                             !resume ? <span><input onChange={(e) => setResume(e.target.files[0])} type="file" accept='/pdf*' hidden id='input' />
-                                                <label className='cursor-pointer' htmlFor="input">{userData.resume ? 'Edit Resume' : 'Upload Resume'}</label></span> : ""
+                                                <label className='cursor-pointer flex items-center gap-1.5' htmlFor="input">
+                                                    {userData.resume ? <BiMessageSquareEdit /> : <MdOutlineFileUpload />}
+                                                    {userData.resume ? 'Edit Resume' : 'Upload Resume'}</label></span> : ""
                                         }
                                     </li>
                                 )
                             }
-                            {resume ? <li onClick={handleUploadResume} className='max-sm:text-sm font-semibold cursor-pointer text-blue-600'>Upload Resume</li> : ""}
-                            {userData.isAdmin && (<li onClick={() => navigate('/admin/add-job', scrollTo(0, 0))} className='cursor-pointer max-sm:text-sm text-blue-600'>Admin Panel</li>)}
-                            <li onClick={handleLogout} className='font-semibold text-blue-600 cursor-pointer max-sm:text-sm'>Logout</li>
+                            {resume ? <li onClick={handleUploadResume} className='font-semibold cursor-pointer text-blue-600'>Upload Resume</li> : ""}
+                            <li onClick={handleLogout} className='font-semibold text-blue-600 cursor-pointer flex items-center gap-1.5'><IoLogOutOutline className='text-lg' /> Logout</li>
                         </ul>
                     )
                 }

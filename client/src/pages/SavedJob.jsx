@@ -49,8 +49,9 @@ const SavedJobs = () => {
     }, [savedJobs]);
 
     return (
-        <div className='h-[70vh] mt-12'>
+        <div className='h-[70vh] mt-5 md:mt-12'>
             <div className='flex flex-col gap-3'>
+                <h1 className='lg:text-xl text-lg font-semibold text-blue-600'>Saved Jobs</h1>
                 {
                     savedJobs.length ? savedJobs.map((job, i) => {
                         return (

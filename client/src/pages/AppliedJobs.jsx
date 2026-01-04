@@ -30,7 +30,6 @@ const AppliedJobs = () => {
 
     console.log(appliedJobs);
 
-    // console.log(appliedJobs)
     useEffect(() => {
         if (!userData && !userLoggedIn) {
             navigate('/');
@@ -42,8 +41,8 @@ const AppliedJobs = () => {
     }, []);
 
     return (
-        <div className='mt-12 h-[75vh]'>
-            <h1 className='text-xl font-bold text-blue-600 md:text-2xl'>Applied Jobs</h1>
+        <div className='mt-5 md:mt-12 h-[75vh]'>
+            <h1 className='lg:text-xl text-lg font-semibold text-blue-600'>Applied Jobs</h1>
             {
                 loading ? <Loader /> :
                     <table className='w-full text-left mt-5 border border-blue-400 shadow'>
