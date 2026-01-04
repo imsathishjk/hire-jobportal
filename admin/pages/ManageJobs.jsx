@@ -24,8 +24,8 @@ const ManageJobs = () => {
 
     const fetchAllCompanyJobs = async () => {
         try {
-            setLoading(true);
             const { data } = await axios.get(`${backendUrl}/company/company-jobs`, { withCredentials: true })
+            setLoading(true);
             if (data.success) {
                 setManageJobsData(data.data);
                 setLoading(false);
