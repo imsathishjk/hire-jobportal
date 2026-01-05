@@ -24,7 +24,6 @@ export const AppContextProvider = ({ children }) => {
     const [searchedJobs, setSearchedJobs] = useState([]);
     const [loginType, setLoginType] = useState('');
 
-    const navigate = useNavigate();
 
 
     axios.defaults.withCredentials = true;
@@ -46,10 +45,12 @@ export const AppContextProvider = ({ children }) => {
 
 
     const handleFetchJobs = async () => {
+         setLoading(true);
         try {
             const { data } = await axios.get(`${backendUrl}/user/all-jobs`)
             let tempData = data.data;
             setJobs(tempData.filter((job) => job.visible === true))
+            setLoading(false);
         } catch (err) {
             console.log(err)
         }
