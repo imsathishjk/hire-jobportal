@@ -38,6 +38,7 @@ const Navbar = () => {
                 toast.success(data.msg);
                 setUserData(null);
                 setUserOptions(false);
+                navigate('/', scrollTo(0, 0));
             } else {
                 toast.error(data.msg);
             }
@@ -49,12 +50,12 @@ const Navbar = () => {
     const handleUploadResume = async () => {
         try {
             setLoading(true);
+            setUserOptions(false);
             const formData = new FormData();
             formData.append('resume', resume);
             const { data } = await axios.post(`${backendUrl}/user/upload-resume`, formData, { withCredentials: true });
             if (data.success) {
                 toast.success(data.msg);
-                setUserOptions(false);
                 setLoading(false);
                 setResume('');
             } else {
@@ -117,7 +118,7 @@ const Navbar = () => {
                                     </li>
                                 )
                             }
-                            {resume ? <li onClick={handleUploadResume} className='font-semibold cursor-pointer text-blue-600'>Upload Resume</li> : ""}
+                            {resume ? <li onClick={handleUploadResume} className='font-semibold cursor-pointer text-white rounded p-1.5 bg-blue-600 text-sm'>Upload Resume</li> : ""}
                             <li onClick={handleLogout} className='font-semibold text-blue-600 cursor-pointer flex items-center gap-1.5'><IoLogOutOutline className='text-lg' /> Logout</li>
                         </ul>
                     )

@@ -4,14 +4,14 @@ import Card from './Card.jsx';
 import axios from 'axios';
 import Loader from './Loader.jsx';
 const JobCards = () => {
-    const { category, categoryLocation, setSearchHistory, setLoading, backendUrl, setError, loading, searchedJobs , jobs} = useContext(AppContext);
+    const { category, categoryLocation, setSearchHistory, setLoading, backendUrl, setError, loading, searchedJobs, jobs } = useContext(AppContext);
 
 
     const [filteredJobs, setFilteredJobs] = useState([]);
 
     const handleCategorySearch = async () => {
         try {
-            if (category == '' && category || categoryLocation == '') {
+            if (category == '' && categoryLocation == '') {
                 setFilteredJobs([]);
             }
             else {

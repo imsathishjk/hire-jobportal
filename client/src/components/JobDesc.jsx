@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
-import moment from 'moment'
-import { BsCash } from "react-icons/bs";
-import { converter } from '../converter';
+import React, { useContext, useEffect, useState } from 'react';
+import moment from 'moment';
 import { FaLocationArrow } from "react-icons/fa6";
 import { PiSuitcaseSimple } from "react-icons/pi";
 import AppContext from '../context/AppContext';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import {LuIndianRupee} from 'react-icons/lu'
 
 const JobDesc = ({ jobDetail }) => {
 
@@ -30,7 +29,6 @@ const JobDesc = ({ jobDetail }) => {
         try {
             const job = userAppliedJobs.map((user) => user.applicantId).includes(userData?._id) && userAppliedJobs.map((user) => user.companyId).includes(jobDetail.companyId) && 
             userAppliedJobs.map((user) => user.jobId).includes(jobDetail?._id);
-            console.log(job)
             if (job) {
                 setAleadyApplied(true)
             } else {
@@ -74,8 +72,8 @@ const JobDesc = ({ jobDetail }) => {
                     <p className='max-sm:text-sm font-semibold text-gray-700 flex items-center gap-1'><FaLocationArrow className='text-blue-600' /> {jobDetail?.location}</p>
                 </div>
                 <div className='flex flex-col gap-3'>
-                    <p className='max-sm:text-sm font-semibold flex items-center gap-1'><BsCash />   {jobDetail?.salary + 'LPA'}</p>
-                    <p className='max-sm:text-sm font-semibold'>Posted on: {moment(jobDetail?.createdAt).format('DD MMMM YYYY')}</p>
+                    <p className='max-sm:text-sm font-semibold flex items-center gap-1'><LuIndianRupee />{jobDetail?.salary + 'LPA'}</p>
+                    <p className='max-sm:text-sm font-semibold'>Posted on: {moment(jobDetail?.createdAt).format('DD-MMMM-YYYY')}</p>
                 </div>
 
             </div>

@@ -13,7 +13,7 @@ const app = express();
 const PORT = 9000;
 
 
-const allowedOrigins = ['https://hire-jobportal-client.vercel.app', 'https://hire-jobportal-admin.vercel.app']
+const allowedOrigins = ['https://hire-jobportal-client.vercel.app', 'https://hire-jobportal-admin.vercel.app', 'http://localhost:5173', 'http://localhost:5174']
 // Middlewares
 // app.use((req) => console.log(req));
 app.use(express.json());

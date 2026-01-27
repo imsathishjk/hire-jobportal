@@ -72,14 +72,14 @@ const JobApplicants = () => {
                                 <th className='max-md:hidden block px-2 py-2'>Action</th>
                             </tr>
                         </thead>
-                        <tbody className='max-sm:text-sm font-medium text-left'>
+                        <tbody className='max-sm:text-sm font-medium text-left relative'>
                             {
                                 applicants.length > 0 ? applicants.map((job, i) => {
                                     return <tr key={job._id}>
                                         <td className='max-md:hidden block font-medium py-2 px-2'>{i + 1}</td>
                                         <td className='px-2 font-medium py-2 '>{job.user[0].username}</td>
                                         <td className='px-2 font-medium py-2'>{job.job[0].jobTitle}</td>
-                                        <td className='max-md:hidden block px-2 font-medium py-2 '>{job.job[0].location}</td>
+                                        <td className='max-md:hidden block px-2 font-medium py-2'>{job.job[0].location}</td>
                                         <td className='px-2 font-medium py-2'><a href={`${job.user[0].resume}`} download={job.user[0].resume} target='_blank' className='flex items-center gap-1.5 font-medium text-green-600 cursor-pointer'><FiDownload />Resume</a></td>
 
                                         <td onClick={() => handleApplicatioStatus(job.applicantId)} className={`max-md:hidden block px-2 font-medium pl-1.5 font-semibold py-2 z-0 cursor-pointer
@@ -89,7 +89,7 @@ const JobApplicants = () => {
                                         </td>
                                         {
                                             showApplicantStatus == job.applicantId && (
-                                                <td className='absolute top-32 right-32 flex flex-col gap-3 items-start bg-gray-100 p-1.5 rounded-md border border-blue-300'>
+                                                <td className='absolute right-0 top-0 flex flex-col gap-3 items-start bg-gray-100 p-1.5 rounded-md border border-blue-300'>
                                                     <span className='font-medium text-blue-600 cursor-pointer' onClick={() => handleChangeApplicationStatus('Pending', job.applicantId, job.jobId)}>Pending</span>
                                                     <span className='font-medium text-blue-600 cursor-pointer' onClick={() => handleChangeApplicationStatus('Accept', job.applicantId, job.jobId)}>Accept</span>
                                                     <span className='font-medium text-blue-600 cursor-pointer' onClick={() => handleChangeApplicationStatus('Reject', job.applicantId, job.jobId)}>Reject</span>

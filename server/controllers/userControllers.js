@@ -97,7 +97,7 @@ export const uploadResume = async (req, res) => {
 
         const userData = await user.findByIdAndUpdate(id, { resume: resumePath });
         if (userData) {
-            return res.json({ success: true, msg: 'User updated successfully', data: userData });
+            return res.json({ success: true, msg: 'Resume Upload Successfully', data: userData });
         }
 
     } catch (err) {
